@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { DASHBOARD_NAV, ADMIN_NAV } from "@/lib/navigation";
+import { DASHBOARD_NAV } from "@/lib/navigation";
 import { APP } from "@/lib/constants";
 import {
   NavigationItem,
@@ -35,19 +35,13 @@ export function DashboardSidebar({ onNavigate }: { onNavigate?: () => void }) {
             ))}
           </SidebarSection>
         ))}
-        <SidebarSection label="Admin">
-          {ADMIN_NAV.map((item) => (
-            <NavigationItem
-              key={item.to}
-              to={item.to}
-              variant="sidebar"
-              onClick={onNavigate}
-            >
-              {item.label}
-            </NavigationItem>
-          ))}
-        </SidebarSection>
       </nav>
+      <div className="mt-auto rounded-xl border border-border/60 bg-card/40 p-3 text-xs text-muted-foreground">
+        <div className="font-medium text-foreground">Preview build</div>
+        <p className="mt-1 leading-relaxed">
+          Mock data only — backend, auth, and AI providers ship in later phases.
+        </p>
+      </div>
     </aside>
   );
 }

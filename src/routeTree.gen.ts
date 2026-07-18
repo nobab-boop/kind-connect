@@ -21,14 +21,17 @@ import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 import { Route as PublicFeaturesRouteImport } from './routes/_public.features'
 import { Route as PublicFaqRouteImport } from './routes/_public.faq'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
-import { Route as DashboardWorkspaceRouteImport } from './routes/_dashboard.workspace'
 import { Route as DashboardSettingsRouteImport } from './routes/_dashboard.settings'
+import { Route as DashboardHistoryRouteImport } from './routes/_dashboard.history'
+import { Route as DashboardHelpRouteImport } from './routes/_dashboard.help'
+import { Route as DashboardFavoritesRouteImport } from './routes/_dashboard.favorites'
+import { Route as DashboardExpertsRouteImport } from './routes/_dashboard.experts'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard.dashboard'
 import { Route as DashboardCreditsRouteImport } from './routes/_dashboard.credits'
-import { Route as DashboardBillingRouteImport } from './routes/_dashboard.billing'
 import { Route as AuthSignUpRouteImport } from './routes/_auth.sign-up'
 import { Route as AuthSignInRouteImport } from './routes/_auth.sign-in'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
+import { Route as DashboardExpertsSlugRouteImport } from './routes/_dashboard.experts.$slug'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -86,14 +89,29 @@ const PublicContactRoute = PublicContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => PublicRoute,
 } as any)
-const DashboardWorkspaceRoute = DashboardWorkspaceRouteImport.update({
-  id: '/workspace',
-  path: '/workspace',
-  getParentRoute: () => DashboardRoute,
-} as any)
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardHistoryRoute = DashboardHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardHelpRoute = DashboardHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardExpertsRoute = DashboardExpertsRouteImport.update({
+  id: '/experts',
+  path: '/experts',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
@@ -104,11 +122,6 @@ const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
 const DashboardCreditsRoute = DashboardCreditsRouteImport.update({
   id: '/credits',
   path: '/credits',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardBillingRoute = DashboardBillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
   getParentRoute: () => DashboardRoute,
 } as any)
 const AuthSignUpRoute = AuthSignUpRouteImport.update({
@@ -126,17 +139,24 @@ const AdminAdminRoute = AdminAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AdminRoute,
 } as any)
+const DashboardExpertsSlugRoute = DashboardExpertsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => DashboardExpertsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminAdminRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
-  '/billing': typeof DashboardBillingRoute
   '/credits': typeof DashboardCreditsRoute
   '/dashboard': typeof DashboardDashboardRoute
+  '/experts': typeof DashboardExpertsRouteWithChildren
+  '/favorites': typeof DashboardFavoritesRoute
+  '/help': typeof DashboardHelpRoute
+  '/history': typeof DashboardHistoryRoute
   '/settings': typeof DashboardSettingsRoute
-  '/workspace': typeof DashboardWorkspaceRoute
   '/contact': typeof PublicContactRoute
   '/faq': typeof PublicFaqRoute
   '/features': typeof PublicFeaturesRoute
@@ -144,17 +164,20 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PublicPrivacyRoute
   '/prompt-experts': typeof PublicPromptExpertsRoute
   '/terms': typeof PublicTermsRoute
+  '/experts/$slug': typeof DashboardExpertsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminAdminRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
-  '/billing': typeof DashboardBillingRoute
   '/credits': typeof DashboardCreditsRoute
   '/dashboard': typeof DashboardDashboardRoute
+  '/experts': typeof DashboardExpertsRouteWithChildren
+  '/favorites': typeof DashboardFavoritesRoute
+  '/help': typeof DashboardHelpRoute
+  '/history': typeof DashboardHistoryRoute
   '/settings': typeof DashboardSettingsRoute
-  '/workspace': typeof DashboardWorkspaceRoute
   '/contact': typeof PublicContactRoute
   '/faq': typeof PublicFaqRoute
   '/features': typeof PublicFeaturesRoute
@@ -162,6 +185,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PublicPrivacyRoute
   '/prompt-experts': typeof PublicPromptExpertsRoute
   '/terms': typeof PublicTermsRoute
+  '/experts/$slug': typeof DashboardExpertsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -172,11 +196,13 @@ export interface FileRoutesById {
   '/_admin/admin': typeof AdminAdminRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
-  '/_dashboard/billing': typeof DashboardBillingRoute
   '/_dashboard/credits': typeof DashboardCreditsRoute
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
+  '/_dashboard/experts': typeof DashboardExpertsRouteWithChildren
+  '/_dashboard/favorites': typeof DashboardFavoritesRoute
+  '/_dashboard/help': typeof DashboardHelpRoute
+  '/_dashboard/history': typeof DashboardHistoryRoute
   '/_dashboard/settings': typeof DashboardSettingsRoute
-  '/_dashboard/workspace': typeof DashboardWorkspaceRoute
   '/_public/contact': typeof PublicContactRoute
   '/_public/faq': typeof PublicFaqRoute
   '/_public/features': typeof PublicFeaturesRoute
@@ -185,6 +211,7 @@ export interface FileRoutesById {
   '/_public/prompt-experts': typeof PublicPromptExpertsRoute
   '/_public/terms': typeof PublicTermsRoute
   '/_public/': typeof PublicIndexRoute
+  '/_dashboard/experts/$slug': typeof DashboardExpertsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -193,11 +220,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/sign-in'
     | '/sign-up'
-    | '/billing'
     | '/credits'
     | '/dashboard'
+    | '/experts'
+    | '/favorites'
+    | '/help'
+    | '/history'
     | '/settings'
-    | '/workspace'
     | '/contact'
     | '/faq'
     | '/features'
@@ -205,17 +234,20 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/prompt-experts'
     | '/terms'
+    | '/experts/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
     | '/sign-in'
     | '/sign-up'
-    | '/billing'
     | '/credits'
     | '/dashboard'
+    | '/experts'
+    | '/favorites'
+    | '/help'
+    | '/history'
     | '/settings'
-    | '/workspace'
     | '/contact'
     | '/faq'
     | '/features'
@@ -223,6 +255,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/prompt-experts'
     | '/terms'
+    | '/experts/$slug'
   id:
     | '__root__'
     | '/_admin'
@@ -232,11 +265,13 @@ export interface FileRouteTypes {
     | '/_admin/admin'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
-    | '/_dashboard/billing'
     | '/_dashboard/credits'
     | '/_dashboard/dashboard'
+    | '/_dashboard/experts'
+    | '/_dashboard/favorites'
+    | '/_dashboard/help'
+    | '/_dashboard/history'
     | '/_dashboard/settings'
-    | '/_dashboard/workspace'
     | '/_public/contact'
     | '/_public/faq'
     | '/_public/features'
@@ -245,6 +280,7 @@ export interface FileRouteTypes {
     | '/_public/prompt-experts'
     | '/_public/terms'
     | '/_public/'
+    | '/_dashboard/experts/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -340,18 +376,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/_dashboard/workspace': {
-      id: '/_dashboard/workspace'
-      path: '/workspace'
-      fullPath: '/workspace'
-      preLoaderRoute: typeof DashboardWorkspaceRouteImport
-      parentRoute: typeof DashboardRoute
-    }
     '/_dashboard/settings': {
       id: '/_dashboard/settings'
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/history': {
+      id: '/_dashboard/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof DashboardHistoryRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/help': {
+      id: '/_dashboard/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof DashboardHelpRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/favorites': {
+      id: '/_dashboard/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof DashboardFavoritesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/experts': {
+      id: '/_dashboard/experts'
+      path: '/experts'
+      fullPath: '/experts'
+      preLoaderRoute: typeof DashboardExpertsRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_dashboard/dashboard': {
@@ -366,13 +423,6 @@ declare module '@tanstack/react-router' {
       path: '/credits'
       fullPath: '/credits'
       preLoaderRoute: typeof DashboardCreditsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/_dashboard/billing': {
-      id: '/_dashboard/billing'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof DashboardBillingRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_auth/sign-up': {
@@ -395,6 +445,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AdminAdminRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/_dashboard/experts/$slug': {
+      id: '/_dashboard/experts/$slug'
+      path: '/$slug'
+      fullPath: '/experts/$slug'
+      preLoaderRoute: typeof DashboardExpertsSlugRouteImport
+      parentRoute: typeof DashboardExpertsRoute
     }
   }
 }
@@ -421,20 +478,35 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface DashboardExpertsRouteChildren {
+  DashboardExpertsSlugRoute: typeof DashboardExpertsSlugRoute
+}
+
+const DashboardExpertsRouteChildren: DashboardExpertsRouteChildren = {
+  DashboardExpertsSlugRoute: DashboardExpertsSlugRoute,
+}
+
+const DashboardExpertsRouteWithChildren =
+  DashboardExpertsRoute._addFileChildren(DashboardExpertsRouteChildren)
+
 interface DashboardRouteChildren {
-  DashboardBillingRoute: typeof DashboardBillingRoute
   DashboardCreditsRoute: typeof DashboardCreditsRoute
   DashboardDashboardRoute: typeof DashboardDashboardRoute
+  DashboardExpertsRoute: typeof DashboardExpertsRouteWithChildren
+  DashboardFavoritesRoute: typeof DashboardFavoritesRoute
+  DashboardHelpRoute: typeof DashboardHelpRoute
+  DashboardHistoryRoute: typeof DashboardHistoryRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardWorkspaceRoute: typeof DashboardWorkspaceRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardBillingRoute: DashboardBillingRoute,
   DashboardCreditsRoute: DashboardCreditsRoute,
   DashboardDashboardRoute: DashboardDashboardRoute,
+  DashboardExpertsRoute: DashboardExpertsRouteWithChildren,
+  DashboardFavoritesRoute: DashboardFavoritesRoute,
+  DashboardHelpRoute: DashboardHelpRoute,
+  DashboardHistoryRoute: DashboardHistoryRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardWorkspaceRoute: DashboardWorkspaceRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(

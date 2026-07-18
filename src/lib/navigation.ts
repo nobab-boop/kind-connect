@@ -52,20 +52,27 @@ export const AUTH_NAV = {
   signUp: { label: "Get started", to: "/sign-up" } as NavItem,
 };
 
+/**
+ * Dashboard navigation — matches Phase 5 spec.
+ * Admin nav is intentionally excluded from the dashboard sidebar.
+ */
 export const DASHBOARD_NAV: NavSection[] = [
   {
     label: "Workspace",
     items: [
       { label: "Dashboard", to: "/dashboard" },
-      { label: "Workspace", to: "/workspace" },
+      { label: "Prompt Experts", to: "/experts" },
+      { label: "Favorites", to: "/favorites" },
+      { label: "Recent Generations", to: "/history" },
     ],
   },
   {
     label: "Account",
     items: [
       { label: "Credits", to: "/credits" },
-      { label: "Billing", to: "/billing" },
+      { label: "Pricing", to: "/pricing" },
       { label: "Settings", to: "/settings" },
+      { label: "Help", to: "/help" },
     ],
   },
 ];
