@@ -34,5 +34,7 @@ function AdminLayout() {
         <Outlet />
       </main>
     </div>
+    </RequireAuth>
   );
 }
+
