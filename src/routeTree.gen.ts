@@ -30,6 +30,7 @@ import { Route as DashboardDashboardRouteImport } from './routes/_dashboard.dash
 import { Route as DashboardCreditsRouteImport } from './routes/_dashboard.credits'
 import { Route as AuthSignUpRouteImport } from './routes/_auth.sign-up'
 import { Route as AuthSignInRouteImport } from './routes/_auth.sign-in'
+import { Route as AuthForgotPasswordRouteImport } from './routes/_auth.forgot-password'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
 import { Route as DashboardExpertsSlugRouteImport } from './routes/_dashboard.experts.$slug'
 import { Route as DashboardExpertsSlugRunRouteImport } from './routes/_dashboard.experts.$slug.run'
@@ -135,6 +136,11 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AdminAdminRoute = AdminAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -154,6 +160,7 @@ const DashboardExpertsSlugRunRoute = DashboardExpertsSlugRunRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminAdminRoute
+  '/forgot-password': typeof AuthForgotPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/credits': typeof DashboardCreditsRoute
@@ -176,6 +183,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminAdminRoute
+  '/forgot-password': typeof AuthForgotPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/credits': typeof DashboardCreditsRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/_dashboard': typeof DashboardRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_admin/admin': typeof AdminAdminRoute
+  '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_dashboard/credits': typeof DashboardCreditsRoute
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
     | '/credits'
@@ -249,6 +259,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
+    | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
     | '/credits'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/_dashboard'
     | '/_public'
     | '/_admin/admin'
+    | '/_auth/forgot-password'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
     | '/_dashboard/credits'
@@ -451,6 +463,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/forgot-password': {
+      id: '/_auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_admin/admin': {
       id: '/_admin/admin'
       path: '/admin'
@@ -486,11 +505,13 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface AuthRouteChildren {
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
 }
