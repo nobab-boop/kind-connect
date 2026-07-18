@@ -43,7 +43,7 @@ export const Route = createFileRoute("/_dashboard/experts/$slug")({
 });
 
 function ExpertDetails() {
-  const { expert } = Route.useLoaderData();
+  const { expert } = Route.useLoaderData() as { expert: import("@/lib/mock-data").PromptExpertExtended };
 
   return (
     <PageWrapper>
