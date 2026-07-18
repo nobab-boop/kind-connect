@@ -21,11 +21,9 @@ import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 import { Route as PublicFeaturesRouteImport } from './routes/_public.features'
 import { Route as PublicFaqRouteImport } from './routes/_public.faq'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
-import { Route as DashboardWorkspaceRouteImport } from './routes/_dashboard.workspace'
 import { Route as DashboardSettingsRouteImport } from './routes/_dashboard.settings'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard.dashboard'
 import { Route as DashboardCreditsRouteImport } from './routes/_dashboard.credits'
-import { Route as DashboardBillingRouteImport } from './routes/_dashboard.billing'
 import { Route as AuthSignUpRouteImport } from './routes/_auth.sign-up'
 import { Route as AuthSignInRouteImport } from './routes/_auth.sign-in'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
@@ -86,11 +84,6 @@ const PublicContactRoute = PublicContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => PublicRoute,
 } as any)
-const DashboardWorkspaceRoute = DashboardWorkspaceRouteImport.update({
-  id: '/workspace',
-  path: '/workspace',
-  getParentRoute: () => DashboardRoute,
-} as any)
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -104,11 +97,6 @@ const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
 const DashboardCreditsRoute = DashboardCreditsRouteImport.update({
   id: '/credits',
   path: '/credits',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardBillingRoute = DashboardBillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
   getParentRoute: () => DashboardRoute,
 } as any)
 const AuthSignUpRoute = AuthSignUpRouteImport.update({
@@ -132,11 +120,9 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminAdminRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
-  '/billing': typeof DashboardBillingRoute
   '/credits': typeof DashboardCreditsRoute
   '/dashboard': typeof DashboardDashboardRoute
   '/settings': typeof DashboardSettingsRoute
-  '/workspace': typeof DashboardWorkspaceRoute
   '/contact': typeof PublicContactRoute
   '/faq': typeof PublicFaqRoute
   '/features': typeof PublicFeaturesRoute
@@ -150,11 +136,9 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminAdminRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
-  '/billing': typeof DashboardBillingRoute
   '/credits': typeof DashboardCreditsRoute
   '/dashboard': typeof DashboardDashboardRoute
   '/settings': typeof DashboardSettingsRoute
-  '/workspace': typeof DashboardWorkspaceRoute
   '/contact': typeof PublicContactRoute
   '/faq': typeof PublicFaqRoute
   '/features': typeof PublicFeaturesRoute
@@ -172,11 +156,9 @@ export interface FileRoutesById {
   '/_admin/admin': typeof AdminAdminRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
-  '/_dashboard/billing': typeof DashboardBillingRoute
   '/_dashboard/credits': typeof DashboardCreditsRoute
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
   '/_dashboard/settings': typeof DashboardSettingsRoute
-  '/_dashboard/workspace': typeof DashboardWorkspaceRoute
   '/_public/contact': typeof PublicContactRoute
   '/_public/faq': typeof PublicFaqRoute
   '/_public/features': typeof PublicFeaturesRoute
@@ -193,11 +175,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/sign-in'
     | '/sign-up'
-    | '/billing'
     | '/credits'
     | '/dashboard'
     | '/settings'
-    | '/workspace'
     | '/contact'
     | '/faq'
     | '/features'
@@ -211,11 +191,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/sign-in'
     | '/sign-up'
-    | '/billing'
     | '/credits'
     | '/dashboard'
     | '/settings'
-    | '/workspace'
     | '/contact'
     | '/faq'
     | '/features'
@@ -232,11 +210,9 @@ export interface FileRouteTypes {
     | '/_admin/admin'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
-    | '/_dashboard/billing'
     | '/_dashboard/credits'
     | '/_dashboard/dashboard'
     | '/_dashboard/settings'
-    | '/_dashboard/workspace'
     | '/_public/contact'
     | '/_public/faq'
     | '/_public/features'
@@ -340,13 +316,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/_dashboard/workspace': {
-      id: '/_dashboard/workspace'
-      path: '/workspace'
-      fullPath: '/workspace'
-      preLoaderRoute: typeof DashboardWorkspaceRouteImport
-      parentRoute: typeof DashboardRoute
-    }
     '/_dashboard/settings': {
       id: '/_dashboard/settings'
       path: '/settings'
@@ -366,13 +335,6 @@ declare module '@tanstack/react-router' {
       path: '/credits'
       fullPath: '/credits'
       preLoaderRoute: typeof DashboardCreditsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/_dashboard/billing': {
-      id: '/_dashboard/billing'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof DashboardBillingRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_auth/sign-up': {
@@ -422,19 +384,15 @@ const AuthRouteChildren: AuthRouteChildren = {
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface DashboardRouteChildren {
-  DashboardBillingRoute: typeof DashboardBillingRoute
   DashboardCreditsRoute: typeof DashboardCreditsRoute
   DashboardDashboardRoute: typeof DashboardDashboardRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardWorkspaceRoute: typeof DashboardWorkspaceRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardBillingRoute: DashboardBillingRoute,
   DashboardCreditsRoute: DashboardCreditsRoute,
   DashboardDashboardRoute: DashboardDashboardRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardWorkspaceRoute: DashboardWorkspaceRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
