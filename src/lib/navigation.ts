@@ -16,9 +16,35 @@ export type NavSection = {
 
 export const PUBLIC_NAV: NavItem[] = [
   { label: "Features", to: "/features" },
+  { label: "Prompt Experts", to: "/prompt-experts" },
   { label: "Pricing", to: "/pricing" },
   { label: "FAQ", to: "/faq" },
   { label: "Contact", to: "/contact" },
+];
+
+export const FOOTER_NAV: NavSection[] = [
+  {
+    label: "Product",
+    items: [
+      { label: "Features", to: "/features" },
+      { label: "Prompt Experts", to: "/prompt-experts" },
+      { label: "Pricing", to: "/pricing" },
+    ],
+  },
+  {
+    label: "Company",
+    items: [
+      { label: "FAQ", to: "/faq" },
+      { label: "Contact", to: "/contact" },
+    ],
+  },
+  {
+    label: "Legal",
+    items: [
+      { label: "Terms of Service", to: "/terms" },
+      { label: "Privacy Policy", to: "/privacy" },
+    ],
+  },
 ];
 
 export const AUTH_NAV = {
@@ -32,7 +58,6 @@ export const DASHBOARD_NAV: NavSection[] = [
     items: [
       { label: "Dashboard", to: "/dashboard" },
       { label: "Workspace", to: "/workspace" },
-      { label: "Prompt Experts", to: "/prompt-experts" },
     ],
   },
   {

@@ -14,13 +14,15 @@ import { Route as DashboardRouteImport } from './routes/_dashboard'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as PublicTermsRouteImport } from './routes/_public.terms'
+import { Route as PublicPromptExpertsRouteImport } from './routes/_public.prompt-experts'
+import { Route as PublicPrivacyRouteImport } from './routes/_public.privacy'
 import { Route as PublicPricingRouteImport } from './routes/_public.pricing'
 import { Route as PublicFeaturesRouteImport } from './routes/_public.features'
 import { Route as PublicFaqRouteImport } from './routes/_public.faq'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
 import { Route as DashboardWorkspaceRouteImport } from './routes/_dashboard.workspace'
 import { Route as DashboardSettingsRouteImport } from './routes/_dashboard.settings'
-import { Route as DashboardPromptExpertsRouteImport } from './routes/_dashboard.prompt-experts'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard.dashboard'
 import { Route as DashboardCreditsRouteImport } from './routes/_dashboard.credits'
 import { Route as DashboardBillingRouteImport } from './routes/_dashboard.billing'
@@ -47,6 +49,21 @@ const AdminRoute = AdminRouteImport.update({
 const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicTermsRoute = PublicTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicPromptExpertsRoute = PublicPromptExpertsRouteImport.update({
+  id: '/prompt-experts',
+  path: '/prompt-experts',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicPrivacyRoute = PublicPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicPricingRoute = PublicPricingRouteImport.update({
@@ -77,11 +94,6 @@ const DashboardWorkspaceRoute = DashboardWorkspaceRouteImport.update({
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardPromptExpertsRoute = DashboardPromptExpertsRouteImport.update({
-  id: '/prompt-experts',
-  path: '/prompt-experts',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
@@ -123,13 +135,15 @@ export interface FileRoutesByFullPath {
   '/billing': typeof DashboardBillingRoute
   '/credits': typeof DashboardCreditsRoute
   '/dashboard': typeof DashboardDashboardRoute
-  '/prompt-experts': typeof DashboardPromptExpertsRoute
   '/settings': typeof DashboardSettingsRoute
   '/workspace': typeof DashboardWorkspaceRoute
   '/contact': typeof PublicContactRoute
   '/faq': typeof PublicFaqRoute
   '/features': typeof PublicFeaturesRoute
   '/pricing': typeof PublicPricingRoute
+  '/privacy': typeof PublicPrivacyRoute
+  '/prompt-experts': typeof PublicPromptExpertsRoute
+  '/terms': typeof PublicTermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -139,13 +153,15 @@ export interface FileRoutesByTo {
   '/billing': typeof DashboardBillingRoute
   '/credits': typeof DashboardCreditsRoute
   '/dashboard': typeof DashboardDashboardRoute
-  '/prompt-experts': typeof DashboardPromptExpertsRoute
   '/settings': typeof DashboardSettingsRoute
   '/workspace': typeof DashboardWorkspaceRoute
   '/contact': typeof PublicContactRoute
   '/faq': typeof PublicFaqRoute
   '/features': typeof PublicFeaturesRoute
   '/pricing': typeof PublicPricingRoute
+  '/privacy': typeof PublicPrivacyRoute
+  '/prompt-experts': typeof PublicPromptExpertsRoute
+  '/terms': typeof PublicTermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -159,13 +175,15 @@ export interface FileRoutesById {
   '/_dashboard/billing': typeof DashboardBillingRoute
   '/_dashboard/credits': typeof DashboardCreditsRoute
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
-  '/_dashboard/prompt-experts': typeof DashboardPromptExpertsRoute
   '/_dashboard/settings': typeof DashboardSettingsRoute
   '/_dashboard/workspace': typeof DashboardWorkspaceRoute
   '/_public/contact': typeof PublicContactRoute
   '/_public/faq': typeof PublicFaqRoute
   '/_public/features': typeof PublicFeaturesRoute
   '/_public/pricing': typeof PublicPricingRoute
+  '/_public/privacy': typeof PublicPrivacyRoute
+  '/_public/prompt-experts': typeof PublicPromptExpertsRoute
+  '/_public/terms': typeof PublicTermsRoute
   '/_public/': typeof PublicIndexRoute
 }
 export interface FileRouteTypes {
@@ -178,13 +196,15 @@ export interface FileRouteTypes {
     | '/billing'
     | '/credits'
     | '/dashboard'
-    | '/prompt-experts'
     | '/settings'
     | '/workspace'
     | '/contact'
     | '/faq'
     | '/features'
     | '/pricing'
+    | '/privacy'
+    | '/prompt-experts'
+    | '/terms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -194,13 +214,15 @@ export interface FileRouteTypes {
     | '/billing'
     | '/credits'
     | '/dashboard'
-    | '/prompt-experts'
     | '/settings'
     | '/workspace'
     | '/contact'
     | '/faq'
     | '/features'
     | '/pricing'
+    | '/privacy'
+    | '/prompt-experts'
+    | '/terms'
   id:
     | '__root__'
     | '/_admin'
@@ -213,13 +235,15 @@ export interface FileRouteTypes {
     | '/_dashboard/billing'
     | '/_dashboard/credits'
     | '/_dashboard/dashboard'
-    | '/_dashboard/prompt-experts'
     | '/_dashboard/settings'
     | '/_dashboard/workspace'
     | '/_public/contact'
     | '/_public/faq'
     | '/_public/features'
     | '/_public/pricing'
+    | '/_public/privacy'
+    | '/_public/prompt-experts'
+    | '/_public/terms'
     | '/_public/'
   fileRoutesById: FileRoutesById
 }
@@ -267,6 +291,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/terms': {
+      id: '/_public/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof PublicTermsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/prompt-experts': {
+      id: '/_public/prompt-experts'
+      path: '/prompt-experts'
+      fullPath: '/prompt-experts'
+      preLoaderRoute: typeof PublicPromptExpertsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/privacy': {
+      id: '/_public/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PublicPrivacyRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/pricing': {
       id: '/_public/pricing'
       path: '/pricing'
@@ -307,13 +352,6 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/_dashboard/prompt-experts': {
-      id: '/_dashboard/prompt-experts'
-      path: '/prompt-experts'
-      fullPath: '/prompt-experts'
-      preLoaderRoute: typeof DashboardPromptExpertsRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_dashboard/dashboard': {
@@ -387,7 +425,6 @@ interface DashboardRouteChildren {
   DashboardBillingRoute: typeof DashboardBillingRoute
   DashboardCreditsRoute: typeof DashboardCreditsRoute
   DashboardDashboardRoute: typeof DashboardDashboardRoute
-  DashboardPromptExpertsRoute: typeof DashboardPromptExpertsRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardWorkspaceRoute: typeof DashboardWorkspaceRoute
 }
@@ -396,7 +433,6 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardBillingRoute: DashboardBillingRoute,
   DashboardCreditsRoute: DashboardCreditsRoute,
   DashboardDashboardRoute: DashboardDashboardRoute,
-  DashboardPromptExpertsRoute: DashboardPromptExpertsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardWorkspaceRoute: DashboardWorkspaceRoute,
 }
@@ -410,6 +446,9 @@ interface PublicRouteChildren {
   PublicFaqRoute: typeof PublicFaqRoute
   PublicFeaturesRoute: typeof PublicFeaturesRoute
   PublicPricingRoute: typeof PublicPricingRoute
+  PublicPrivacyRoute: typeof PublicPrivacyRoute
+  PublicPromptExpertsRoute: typeof PublicPromptExpertsRoute
+  PublicTermsRoute: typeof PublicTermsRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
@@ -418,6 +457,9 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicFaqRoute: PublicFaqRoute,
   PublicFeaturesRoute: PublicFeaturesRoute,
   PublicPricingRoute: PublicPricingRoute,
+  PublicPrivacyRoute: PublicPrivacyRoute,
+  PublicPromptExpertsRoute: PublicPromptExpertsRoute,
+  PublicTermsRoute: PublicTermsRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 
