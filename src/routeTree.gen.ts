@@ -32,6 +32,7 @@ import { Route as AuthSignUpRouteImport } from './routes/_auth.sign-up'
 import { Route as AuthSignInRouteImport } from './routes/_auth.sign-in'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
 import { Route as DashboardExpertsSlugRouteImport } from './routes/_dashboard.experts.$slug'
+import { Route as DashboardExpertsSlugRunRouteImport } from './routes/_dashboard.experts.$slug.run'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -144,6 +145,11 @@ const DashboardExpertsSlugRoute = DashboardExpertsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => DashboardExpertsRoute,
 } as any)
+const DashboardExpertsSlugRunRoute = DashboardExpertsSlugRunRouteImport.update({
+  id: '/run',
+  path: '/run',
+  getParentRoute: () => DashboardExpertsSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -164,7 +170,8 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PublicPrivacyRoute
   '/prompt-experts': typeof PublicPromptExpertsRoute
   '/terms': typeof PublicTermsRoute
-  '/experts/$slug': typeof DashboardExpertsSlugRoute
+  '/experts/$slug': typeof DashboardExpertsSlugRouteWithChildren
+  '/experts/$slug/run': typeof DashboardExpertsSlugRunRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -185,7 +192,8 @@ export interface FileRoutesByTo {
   '/privacy': typeof PublicPrivacyRoute
   '/prompt-experts': typeof PublicPromptExpertsRoute
   '/terms': typeof PublicTermsRoute
-  '/experts/$slug': typeof DashboardExpertsSlugRoute
+  '/experts/$slug': typeof DashboardExpertsSlugRouteWithChildren
+  '/experts/$slug/run': typeof DashboardExpertsSlugRunRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,7 +219,8 @@ export interface FileRoutesById {
   '/_public/prompt-experts': typeof PublicPromptExpertsRoute
   '/_public/terms': typeof PublicTermsRoute
   '/_public/': typeof PublicIndexRoute
-  '/_dashboard/experts/$slug': typeof DashboardExpertsSlugRoute
+  '/_dashboard/experts/$slug': typeof DashboardExpertsSlugRouteWithChildren
+  '/_dashboard/experts/$slug/run': typeof DashboardExpertsSlugRunRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/prompt-experts'
     | '/terms'
     | '/experts/$slug'
+    | '/experts/$slug/run'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -256,6 +266,7 @@ export interface FileRouteTypes {
     | '/prompt-experts'
     | '/terms'
     | '/experts/$slug'
+    | '/experts/$slug/run'
   id:
     | '__root__'
     | '/_admin'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/_public/terms'
     | '/_public/'
     | '/_dashboard/experts/$slug'
+    | '/_dashboard/experts/$slug/run'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -453,6 +465,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardExpertsSlugRouteImport
       parentRoute: typeof DashboardExpertsRoute
     }
+    '/_dashboard/experts/$slug/run': {
+      id: '/_dashboard/experts/$slug/run'
+      path: '/run'
+      fullPath: '/experts/$slug/run'
+      preLoaderRoute: typeof DashboardExpertsSlugRunRouteImport
+      parentRoute: typeof DashboardExpertsSlugRoute
+    }
   }
 }
 
@@ -478,12 +497,23 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface DashboardExpertsSlugRouteChildren {
+  DashboardExpertsSlugRunRoute: typeof DashboardExpertsSlugRunRoute
+}
+
+const DashboardExpertsSlugRouteChildren: DashboardExpertsSlugRouteChildren = {
+  DashboardExpertsSlugRunRoute: DashboardExpertsSlugRunRoute,
+}
+
+const DashboardExpertsSlugRouteWithChildren =
+  DashboardExpertsSlugRoute._addFileChildren(DashboardExpertsSlugRouteChildren)
+
 interface DashboardExpertsRouteChildren {
-  DashboardExpertsSlugRoute: typeof DashboardExpertsSlugRoute
+  DashboardExpertsSlugRoute: typeof DashboardExpertsSlugRouteWithChildren
 }
 
 const DashboardExpertsRouteChildren: DashboardExpertsRouteChildren = {
-  DashboardExpertsSlugRoute: DashboardExpertsSlugRoute,
+  DashboardExpertsSlugRoute: DashboardExpertsSlugRouteWithChildren,
 }
 
 const DashboardExpertsRouteWithChildren =

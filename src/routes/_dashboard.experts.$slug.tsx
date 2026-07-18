@@ -77,10 +77,12 @@ function ExpertDetails() {
             </div>
           </div>
           <div className="flex flex-col gap-2 md:items-end">
-            <Button size="lg">
-              <Sparkles className="mr-2 h-4 w-4" /> Start Generating
+            <Button asChild size="lg">
+              <Link to="/experts/$slug/run" params={{ slug: expert.slug }}>
+                <Sparkles className="mr-2 h-4 w-4" /> Start Generating
+              </Link>
             </Button>
-            <div className="text-[11px] text-muted-foreground">Generation ships in a later phase.</div>
+            <div className="text-[11px] text-muted-foreground">Guided workflow · generation ships later.</div>
           </div>
         </ContentCard>
 
