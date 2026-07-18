@@ -1,24 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { APP } from "../lib/constants";
+import { buildPageMeta } from "../lib/seo";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: buildPageMeta({
+      title: `${APP.name} — ${APP.tagline}`,
+      description: APP.description,
+      standaloneTitle: true,
+    }),
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <main
+      id="main-content"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6"
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+      {/* Ambient background — subtle, non-decorative */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--color-surface),transparent_60%)]"
       />
-    </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"
+      />
+
+      <section className="relative z-10 mx-auto w-full max-w-xl text-center">
+        <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
+          <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden />
+          Foundation initialized
+        </div>
+
+        <h1 className="mt-6 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+          {APP.name}
+        </h1>
+        <p className="mt-4 text-base text-muted-foreground sm:text-lg">
+          {APP.tagline}
+        </p>
+        <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+          Phase 1 complete. Global theme, design tokens, typography, layout, error
+          boundary, toast, SEO and accessibility foundations are in place. Product
+          features arrive in upcoming phases.
+        </p>
+      </section>
+    </main>
   );
 }
