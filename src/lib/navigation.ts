@@ -58,7 +58,6 @@ export const DASHBOARD_NAV: NavSection[] = [
     items: [
       { label: "Dashboard", to: "/dashboard" },
       { label: "Workspace", to: "/workspace" },
-      { label: "Prompt Experts", to: "/prompt-experts" },
     ],
   },
   {
