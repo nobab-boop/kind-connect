@@ -2,6 +2,7 @@ import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 import { APP } from "@/lib/constants";
 import { UserMenu } from "@/components/layout/UserMenu";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { RequireAuth } from "@/lib/auth/guards";
 
 export const Route = createFileRoute("/_admin")({
   component: AdminLayout,
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/_admin")({
 
 function AdminLayout() {
   return (
+    <RequireAuth>
     <div className="flex min-h-screen flex-col bg-background">
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border/60 bg-background/80 px-4 backdrop-blur sm:px-6">
         <div className="flex items-center gap-4">
@@ -32,5 +34,7 @@ function AdminLayout() {
         <Outlet />
       </main>
     </div>
+    </RequireAuth>
   );
 }
+
